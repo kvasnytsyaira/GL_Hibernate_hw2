@@ -10,6 +10,7 @@ import org.junit.Test;
 import java.util.List;
 import static model.Availability.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class TestWorkerDAOImpl {
     private static final Logger log = Logger.getLogger(TestWorkerDAOImpl.class);
@@ -67,15 +68,15 @@ public class TestWorkerDAOImpl {
         session.beginTransaction();
 
         Department department = new Department("DepForWorker",false);
-        Worker worker = new Worker(22, FULLTIME, "Kvasnytsya Ira",null);
+        Worker worker = new Worker(22, PARTTIME, "Kvasnytsya Ira", null);
         session.save(department);
         session.save(worker);
 
         session.getTransaction().commit();
         WorkerDAOImpl workerDAO= new WorkerDAOImpl(sessionFactory);
-        List list = workerDAO.getListWorkersByDepartmentAndAvailability(department.getIdDepartment(), FULLTIME);
+        List list = workerDAO.getListWorkersByDepartmentAndAvailability(1, FULLTIME);
 
-        assert list.isEmpty();
+        assertNotEquals(1,list.size());
         session.close();
         sessionFactory.close();
     }
@@ -109,7 +110,7 @@ public class TestWorkerDAOImpl {
         session.getTransaction().commit();
 
         WorkerDAOImpl workerDAO = new WorkerDAOImpl(sessionFactory);
-        List workersByDepartmentAndAvailabilityByCriteria = workerDAO.getListWorkersByDepartmentAndAvailabilityByCriteria(1, PARTTIME);
+        List<Worker> workersByDepartmentAndAvailabilityByCriteria = workerDAO.getListWorkersByDepartmentAndAvailabilityByCriteria(1, PARTTIME);
 
         assertEquals(worker0,workersByDepartmentAndAvailabilityByCriteria.get(0));
         assertEquals(worker2,workersByDepartmentAndAvailabilityByCriteria.get(1));
@@ -140,7 +141,7 @@ public class TestWorkerDAOImpl {
         WorkerDAOImpl workerDAO= new WorkerDAOImpl(sessionFactory);
         List list = workerDAO.getListWorkersByDepartmentAndAvailabilityByCriteria(department.getIdDepartment(), FULLTIME);
 
-        assert list.isEmpty();
+        assertNotEquals(1,list.size());
         session.close();
         sessionFactory.close();
     }

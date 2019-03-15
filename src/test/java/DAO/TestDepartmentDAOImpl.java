@@ -8,6 +8,7 @@ import org.hibernate.cfg.Configuration;
 import org.junit.Test;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class TestDepartmentDAOImpl {
     private static final Logger log = Logger.getLogger(TestDepartmentDAOImpl.class);
@@ -36,6 +37,7 @@ public class TestDepartmentDAOImpl {
         DepartmentDAOImpl departmentDAO = new DepartmentDAOImpl(sessionFactory);
         List list = departmentDAO.readAllActiveDepartments();
 
+        assert list.size()==1;
         assertEquals(helloDepartment,list.get(0));
 
         session.close();
@@ -67,7 +69,7 @@ public class TestDepartmentDAOImpl {
         session.close();
         sessionFactory.close();
 
-        assert list.isEmpty();
+        assertNotEquals(1,list.size());
     }
 
     @Test
@@ -94,6 +96,7 @@ public class TestDepartmentDAOImpl {
         DepartmentDAOImpl departmentDAO = new DepartmentDAOImpl(sessionFactory);
         List list = departmentDAO.readAllActiveDepartmentsByCriteria();
 
+        assert list.size()==1;
         assertEquals(helloDepartment,list.get(0));
 
         session.close();
@@ -124,7 +127,7 @@ public class TestDepartmentDAOImpl {
 
         session.close();
         sessionFactory.close();
-        assert list.isEmpty();
+        assertNotEquals(1,list.size());
     }
 
 
