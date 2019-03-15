@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+}
+
+group 'u'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+//    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.38'
+    implementation 'org.projectlombok:lombok:1.16.16'
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.8.Final'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.13'
+
+
+    
+    //new 
+    //// https://mvnrepository.com/artifact/com.h2database/h2
+    testCompile group: 'com.h2database', name: 'h2', version: '1.0.60'
+    // https://mvnrepository.com/artifact/junit/junit
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    // https://mvnrepository.com/artifact/log4j/log4j
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.3.1'
+
+
+
+}
